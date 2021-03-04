@@ -21,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './auth.service'; 
+import { AuthGuard } from './auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -45,17 +46,20 @@ import { AuthService } from './auth.service';
       { path: '', component: HomeComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
-      { path: 'check-out', component: CheckOutComponent },
-      { path: 'order-sucess', component: OrderSuccessComponent },
-      { path: 'my/orders', component: MyOrdersComponent },
-      { path: 'admin/products', component: AdminProductsComponent },
-      { path: 'admin/orders', component: AdminOrdersComponent },
       { path: 'login', component: LoginComponent },
+
+      { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
+      { path: 'order-sucess', component: OrderSuccessComponent, canActivate: [AuthGuard] },
+      { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard]  },
+      
+      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard]  },
+      { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard]  },
 
     ])
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })
