@@ -17,7 +17,8 @@ export class UserService {
       email: user.email,
     });
   }
-
+  
+  // AngularFireObject, https://github.com/angular/angularfire/blob/master/docs/rtdb/objects.md
   get(uid: string): AngularFireObject<AppUser> {
     return this.db.object('/users/' + uid);
   }

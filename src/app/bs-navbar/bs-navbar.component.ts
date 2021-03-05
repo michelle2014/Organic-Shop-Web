@@ -1,4 +1,6 @@
+import { applySourceSpanToExpressionIfNeeded } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
+import { AppUser } from '../models/app-user';
 import { AuthService } from './../auth.service';
 
 @Component({
@@ -7,8 +9,10 @@ import { AuthService } from './../auth.service';
   styleUrls: ['./bs-navbar.component.css']
 })
 export class BsNavbarComponent {
+  appUser: AppUser;
 
-  constructor(public auth: AuthService) {
+  constructor(private auth: AuthService) {
+    auth.appUser$.subscribe(appUser => this.appUser = appUser);
   }
 
   logout() {
